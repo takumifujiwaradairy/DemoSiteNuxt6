@@ -1,14 +1,15 @@
 <template>
   <div>
-    <h1>記事</h1>
     <add-article/>
+    <index-article/>
   </div>
 </template>
 
 <script>
 import AddArticle from './AddArticle.vue'
+import IndexArticle from './IndexArticle.vue'
 export default {
-  components: { AddArticle },
+  components: { AddArticle, IndexArticle },
 }
 </script>
 
