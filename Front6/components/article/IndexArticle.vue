@@ -14,6 +14,10 @@
         <label>中身</label>
         <p>{{ article.body }}</p>
       </li>
+      <li>
+        <label>LIKEの合計</label>
+        <p>{{ article.likes_count }}</p>
+      </li>
       <delete-article :id="article.id"/>
       <add-like :id="article.id"/>
     </ul>
