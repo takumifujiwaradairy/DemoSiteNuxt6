@@ -14,13 +14,16 @@
         <label>中身</label>
         <p>{{ article.body }}</p>
       </li>
+      <delete-article :id="article.id"/>
     </ul>
   </div> 
 </template>
 
 <script>
 import { mapActions,mapGetters } from 'vuex';
+import DeleteArticle from './DeleteArticle.vue';
 export default {
+  components: { DeleteArticle },
   computed: {
     ...mapGetters(['getArticles'])
   },
