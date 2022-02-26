@@ -15,7 +15,11 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
-
+  server: {
+    port: 8000, // デフォルト: 3000
+    host: '0.0.0.0' // デフォルト: localhost
+  },
+    // その他の設定
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
   ],
@@ -33,7 +37,17 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/proxy'
   ],
+  proxy: {
+    '/api': {
+      target: 'http://localhost:3000',
+      pathRewrite: {
+        '^/api' : '/api/v1'
+      }
+    }
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
