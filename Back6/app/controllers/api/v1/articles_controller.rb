@@ -1,5 +1,5 @@
 class Api::V1::ArticlesController < ApplicationController
-  before_action :set_article, only: [:destroy]
+  before_action :set_article, only: [:destroy, :show]
 
   def index
     currenrt_user_likes_ids =current_user.likes.pluck(:article_id)
@@ -28,6 +28,10 @@ class Api::V1::ArticlesController < ApplicationController
     else
       render json:@article.errors, status: 401
     end
+  end
+
+  def show
+    render json: @article
   end
   
   private

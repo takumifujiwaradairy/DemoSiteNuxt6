@@ -11,9 +11,9 @@
       <button @click="search">検索</button>
     </div>
     <h1>一覧</h1>
-    <ul v-for="article in getArticles" :key="article.id">
+    <ul v-for="article in getArticles" :key="`third-${article.id}`">
       <li>
-        <label>記事のID</label>
+        <label>記事のid</label>
         <p>{{ article.id }}</p>
       </li>
       <li>
@@ -25,15 +25,16 @@
         <p>{{ article.body }}</p>
       </li>
       <li>
-        <label>LIKEの合計</label>
+        <label>likeの合計</label>
         <p>{{ article.likes_count }}</p>
       </li>
-      <li class="tag-list" v-for="tag in article.tags" :key="tag.id">
-        <label>Tag</label>
+      <li class="tag-list" v-for="tag in article.tags" :key="`forth-${tag.id}`">
+        <label>tag</label>
         <p>{{ tag.name }}</p>
       </li>
       <delete-article :id="article.id"/>
       <add-like :id="article.id" :is_like="article.is_like"/>
+      <nuxt-link :to="`/article/${article.id}`">詳細ページ</nuxt-link>
     </ul>
   </div> 
 </template>
