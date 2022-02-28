@@ -9,13 +9,14 @@ class Api::V1::ArticlesController < ApplicationController
       article.is_like = article.id.in?(currenrt_user_likes_ids)
       article
     end
-    render json: articles.to_json(methods: [:likes_count, :is_like])
+    render json: articles.to_json(include: [:tags], methods: [:likes_count, :is_like])
   end
   
   def create
+    # Article.new({title: 'aa', body: 'bbb', tag_ids: [1,2, 3]})
     article = current_user.articles.build(article_params) 
     if article.save
-      render json: article.to_json(methods: [:likes_count, :is_like])
+      render json: article.to_json(include: [:tags], methods: [:likes_count, :is_like])
     else
       render json: article.errors, status: 422
     end
@@ -36,6 +37,7 @@ class Api::V1::ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:title, :body)
+    # カラム名_idsとすると関連付けを行ってくれる
+    params.require(:article).permit(:title, :body, tag_ids: [])
   end
 end
