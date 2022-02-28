@@ -1,5 +1,5 @@
 class Api::V1::ArticlesController < ApplicationController
-  before_action :set_article, only: [:destroy, :show]
+  before_action :set_article, only: [:destroy, :show, :update]
 
   def index
     currenrt_user_likes_ids =current_user.likes.pluck(:article_id)
@@ -31,7 +31,11 @@ class Api::V1::ArticlesController < ApplicationController
   end
 
   def show
-    render json: @article
+    render json: @article.to_json(include: [:tags])
+  end
+
+  def update
+    article = @article.update(article_params)
   end
   
   private

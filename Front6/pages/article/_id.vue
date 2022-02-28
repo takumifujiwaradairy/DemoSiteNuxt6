@@ -24,7 +24,7 @@ import {  mapActions, mapGetters } from 'vuex';
 export default {
   // 詳細画面を取ってくるためにindex.jsにactionを定義する  
   async asyncData({ store, route }) {
-    store.dispatch("fetchArticle", route.params.id);
+    await store.dispatch("fetchArticle", route.params.id);
   },
   computed: {
     // stateの中身を取って来る。
