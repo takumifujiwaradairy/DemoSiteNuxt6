@@ -15,6 +15,7 @@
         <p>{{ article.body }}</p>
       </li>
       <delete-article :id="article.id"/>
+      <add-like :id="article.id"/>
     </ul>
   </div> 
 </template>
@@ -22,8 +23,12 @@
 <script>
 import { mapActions,mapGetters } from 'vuex';
 import DeleteArticle from './DeleteArticle.vue';
+import AddLike from './AddLike.vue';
 export default {
-  components: { DeleteArticle },
+  components: {
+    DeleteArticle,
+    AddLike
+  },
   computed: {
     ...mapGetters(['getArticles'])
   },

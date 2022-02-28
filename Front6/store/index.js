@@ -29,7 +29,10 @@ const createStore = () => {
         await axios.delete(`${url}/${id}`).then(() => {
           commit('deleteArticle', id)
         })
-      }
+      },
+      async addLike({ commit }, id){
+        await axios.post(`${url}/${id}/likes`)
+      },
     },
     mutations: {
       addArticle: (state, article) => state.articles.push(article),
