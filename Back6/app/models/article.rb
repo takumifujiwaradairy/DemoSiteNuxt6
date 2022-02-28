@@ -4,4 +4,7 @@ class Article < ApplicationRecord
   has_many :tag_articles, dependent: :destroy
   has_many :tags, through: :tag_articles, dependent: :destroy
   attr_accessor :likes_count, :is_like
+
+  extend Enumerize
+  enumerize :status, in: [:start, :finished], default: :start
 end

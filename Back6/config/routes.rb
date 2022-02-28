@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       mount_devise_token_auth_for 'User', at: 'auth'
       resources :articles do
         resource :likes, only: [:create, :destroy]
+        resource :statuses, only: [:update]
       end
       resources :tags
     end

@@ -65,6 +65,11 @@ const createStore = () => {
         await axios.put(`${url}/${id}`, { article: { title: title, body: body, tag_ids: tags } }).then( response => {
           commit('setArticle', response.data)
         })
+      },
+      async changeStatus({ commit }, { id, status }){
+        await axios.put(`${url}/${id}/statuses/`, { status: status }).then( response => {
+          commit('setState', response.data)
+        })
       }
     },
     mutations: {
@@ -91,6 +96,10 @@ const createStore = () => {
       },
       // 詳細画面のデータをStoreの中に入れる
       setArticle: (state, article) => state.article = article,
+      setState: (state, article) => {
+        const index = state.articles.findIndex(articles => articles.id === article.id);
+        state.articles.splice(index, 1, article); 
+      }
     }
   })
 }
