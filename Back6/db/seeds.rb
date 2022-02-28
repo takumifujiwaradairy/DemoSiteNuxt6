@@ -12,3 +12,11 @@ Article.create(title: 'CCC', body: 'CCCCCCCCCCCCCCCC', user_id: '1')
 User.create(name: 'AAA', email: 'aaa@bar.com', password: 'AAAAAA')
 User.create(name: 'BBB', email: 'bbb@bar.com', password: 'BBBBBB')
 User.create(name: 'CCC', email: 'ccc@bar.com', password: 'CCCCCC')
+
+Tag.create(name: '日本食')
+Tag.create(name: 'フランス料理')
+Tag.create(name: '中華')
+
+ArticleTagRelation.create(article_id: 1, tag_id:1)
+ArticleTagRelation.create(article_id: 2, tag_id:2)
+ArticleTagRelation.create(article_id: 3, tag_id:2)
