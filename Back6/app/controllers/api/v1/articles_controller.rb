@@ -9,13 +9,13 @@ class Api::V1::ArticlesController < ApplicationController
       article.is_like = article.id.in?(currenrt_user_likes_ids)
       article
     end
-    render json: articles.to_json(methods: [:likes_count, :is_like])
+    render json: articles.to_json(include: :tags, methods: [:likes_count, :is_like])
   end
   
   def create
     article = current_user.articles.build(article_params) 
     if article.save
-      render json: article.to_json(methods: [:likes_count, :is_like])
+      render json: article.to_json(include: :tags, methods: [:likes_count, :is_like])
     else
       render json: article.errors, status: 422
     end

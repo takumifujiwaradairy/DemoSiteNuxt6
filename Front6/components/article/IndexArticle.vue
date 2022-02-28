@@ -23,6 +23,10 @@
         <label>LIKEの合計</label>
         <p>{{ article.likes_count }}</p>
       </li>
+      <li class="tag-list" v-for="tag in article.tags" :key="tag.id">
+        <label>Tag</label>
+        <p>{{ tag.name }}</p>
+      </li>
       <delete-article :id="article.id"/>
       <add-like :id="article.id" :is_like="article.is_like"/>
     </ul>
