@@ -19,7 +19,7 @@
         <p>{{ article.likes_count }}</p>
       </li>
       <delete-article :id="article.id"/>
-      <add-like :id="article.id"/>
+      <add-like :id="article.id" :is_like="article.is_like"/>
     </ul>
   </div> 
 </template>
