@@ -1,5 +1,10 @@
 <template>
   <div>
+    <div>
+      <h1>検索</h1>
+      <input v-model="query.title_cont">
+      <button @click="search">検索</button>
+    </div>
     <h1>一覧</h1>
     <ul v-for="article in getArticles" :key="article.id">
       <li>
@@ -28,7 +33,17 @@
 import { mapActions,mapGetters } from 'vuex';
 import DeleteArticle from './DeleteArticle.vue';
 import AddLike from './AddLike.vue';
+import axios from "axios";
+import Qs from "qs";
+
 export default {
+  data() {
+    return {
+      query: {
+        title_cont: "",
+      },
+    };
+  },
   components: {
     DeleteArticle,
     AddLike
@@ -38,6 +53,17 @@ export default {
   },
   methods: {
     ...mapActions(['fetchArticles']),
+    search() {
+      axios.get("/api/articles",
+      { params: { q: this.query }, 
+        paramsSerializer(params) {
+          return Qs.stringify(params, { arrayFormat: "brackets" })
+        }
+      })
+      .then((response) => {
+        this.$store.commit("setArticles", response.data);
+      })
+    }
   },
   created () {
     this.fetchArticles()

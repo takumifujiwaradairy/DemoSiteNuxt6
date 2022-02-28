@@ -3,7 +3,8 @@ class Api::V1::ArticlesController < ApplicationController
 
   def index
     currenrt_user_likes_ids =current_user.likes.pluck(:article_id)
-    articles = Article.all.map do |article|
+    articles = Article.ransack(params[:q]).result(distinct: true)
+    articles = articles.map do |article|
       article.likes_count = article.likes.count
       article.is_like = article.id.in?(currenrt_user_likes_ids)
       article
