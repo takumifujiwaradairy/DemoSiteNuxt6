@@ -36,7 +36,7 @@ export default {
   methods: {
     ...mapActions(['fetchTags']),
     post: function() {
-      this.$store.dispatch('addArticle', { article: { title: this.title, body: this .body, tag_ids: this.tags } });
+      this.$store.dispatch('addArticle', { article: { title: this.title, body: this.body, tag_ids: this.tags } });
       this.title = '',
       this.body = '',
       this.tags = '',

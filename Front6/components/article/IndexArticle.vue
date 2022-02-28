@@ -16,14 +16,28 @@
         <label>記事のid</label>
         <p>{{ article.id }}</p>
       </li>
-      <li>
-        <label>タイトル</label>
-        <p>{{ article.title }}</p>
-      </li>
-      <li>
-        <label>中身</label>
-        <p>{{ article.body }}</p>
-      </li>
+      <div v-if="isEdit">
+        <li>
+          <label>タイトル</label>
+          <p>{{ article.title }}</p>
+        </li>
+        <li>
+          <label>中身</label>
+          <p>{{ article.body }}</p>
+        </li>
+      </div>
+      <div v-else>
+        <li>
+          <label>タイトル</label>
+          <textarea v-model="article.title"></textarea>
+        </li>
+        <li>
+          <label>中身</label>
+          <textarea v-model="article.body"></textarea>
+        </li>
+      </div>
+      <button @click="startEdit(isEdit)">{{ isEdit? '編集':'キャンセル'}}</button>
+      <button @click="edit(article)">編集を送信</button>
       <li>
         <label>likeの合計</label>
         <p>{{ article.likes_count }}</p>
@@ -50,6 +64,7 @@ import Qs from "qs";
 export default {
   data() {
     return {
+      isEdit: true,
       query: {
         title_cont: "",
         tags_id_in: [],
@@ -75,6 +90,16 @@ export default {
       .then((response) => {
         this.$store.commit("setArticles", response.data);
       })
+    },
+    edit(article) {
+      this.$store.dispatch('editArticle', { id: article.id ,title: article.title, body: article.body } );
+    },
+    startEdit(isEdit) { 
+      if(isEdit) {
+        this.isEdit = false
+      } else {
+        this.isEdit = true
+      }
     }
   },
   created () {
