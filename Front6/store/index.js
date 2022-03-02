@@ -2,16 +2,22 @@ import Vuex from "vuex";
 import axios from "axios";
 
 const url = '/api/articles'
+const tagUrl = '/api/tags'
 
 const createStore = () => {
   return new Vuex.Store({
     state: () => ({
       articles: [
+      ],
+      tags: [
       ]
     }),
     getters: {
       getArticles: (state) => {
         return state.articles
+      },
+      getTags: (state) => {
+        return state.tags
       }
     },
     actions: {
@@ -23,6 +29,11 @@ const createStore = () => {
       async fetchArticles({ commit }){
         await axios.get(url).then( response => {
           commit('setArticles', response.data)
+        })
+      },
+      async fetchTags({ commit }){
+        await axios.get(tagUrl).then( response => {
+          commit('setTags', response.data)
         })
       },
       async deleteArticle({ commit }, id){
@@ -44,6 +55,7 @@ const createStore = () => {
     mutations: {
       addArticle: (state, article) => state.articles.push(article),
       setArticles: (state, articles) => state.articles = articles ,
+      setTags: (state, tags) => state.tags = tags,
       deleteArticle: (state, id) => {
         const index = state.articles.findIndex(article => article.id === id);
         state.articles.splice(index, 1);
