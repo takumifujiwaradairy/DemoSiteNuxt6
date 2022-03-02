@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2022_03_01_001150) do
     t.index ["tag_id"], name: "index_tag_articles_on_tag_id"
   end
 
+
   create_table "tags", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -69,6 +70,8 @@ ActiveRecord::Schema.define(version: 2022_03_01_001150) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "article_tag_relations", "articles"
+  add_foreign_key "article_tag_relations", "tags"
   add_foreign_key "likes", "articles"
   add_foreign_key "likes", "users"
   add_foreign_key "tag_articles", "articles"
