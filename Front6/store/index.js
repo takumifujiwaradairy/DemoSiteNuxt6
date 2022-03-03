@@ -10,11 +10,15 @@ const createStore = () => {
       articles: [
       ],
       tags: [
-      ]
+      ],
+      article: ''
     }),
     getters: {
       getArticles: (state) => {
         return state.articles
+      },
+      getArticle: (state) => {
+        return state.article
       },
       getTags: (state) => {
         return state.tags
@@ -51,6 +55,12 @@ const createStore = () => {
           commit('deleteLike', { id: id, count: response.data })
         })
       },
+      // 詳細画面を取得する用のメソッドを定義する
+      async fetchArticle({ commit }, id){
+        await axios.get(`${url}/${id}`).then( response => {
+          commit('setArticle', response.data)
+        })
+      }
     },
     mutations: {
       addArticle: (state, article) => state.articles.push(article),
@@ -73,7 +83,9 @@ const createStore = () => {
         article.likes_count = count;
         article.is_like = false;
         state.articles.splice(index, 1, article);
-      }
+      },
+      // 詳細画面のデータをStoreの中に入れる
+      setArticle: (state, article) => state.article = article,
     }
   })
 }

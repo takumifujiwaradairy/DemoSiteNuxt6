@@ -11,7 +11,7 @@
         <textarea v-model="body"></textarea>
       </div>
       <select v-model="tags" multiple>
-        <option v-for="tags in getTags" :key="tags.id" :value="tags.id">
+        <option v-for="tags in getTags" :key="`first-${tags.id}`" :value="tags.id">
           {{ tags.name }}
         </option>
       </select>
