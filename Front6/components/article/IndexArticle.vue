@@ -35,6 +35,7 @@
       <delete-article :id="article.id"/>
       <add-like :id="article.id" :is_like="article.is_like"/>
       <nuxt-link :to="`/article/${article.id}`">詳細ページ</nuxt-link>
+      <nuxt-link :to="`/edit/${article.id}`">編集ページ</nuxt-link>
     </ul>
   </div> 
 </template>

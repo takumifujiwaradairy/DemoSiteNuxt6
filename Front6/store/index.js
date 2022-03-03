@@ -22,7 +22,7 @@ const createStore = () => {
       },
       getTags: (state) => {
         return state.tags
-      }
+      },
     },
     actions: {
       async addArticle({ commit }, article){
@@ -58,6 +58,11 @@ const createStore = () => {
       // 詳細画面を取得する用のメソッドを定義する
       async fetchArticle({ commit }, id){
         await axios.get(`${url}/${id}`).then( response => {
+          commit('setArticle', response.data)
+        })
+      },
+      async editArticle({ commit }, { id, title, body, tags }){
+        await axios.put(`${url}/${id}`, { article: { title: title, body: body, tag_ids: tags } }).then( response => {
           commit('setArticle', response.data)
         })
       }
