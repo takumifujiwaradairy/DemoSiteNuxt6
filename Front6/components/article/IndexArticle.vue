@@ -3,6 +3,11 @@
     <div>
       <h1>検索</h1>
       <input v-model="query.title_cont">
+      <select v-model="query.tags_id_in" multiple>
+        <option v-for="searchTag in getTags" :key="searchTag.id" :value="searchTag.id">
+          {{ searchTag.name }}
+        </option>
+      </select>
       <button @click="search">検索</button>
     </div>
     <h1>一覧</h1>
@@ -45,6 +50,7 @@ export default {
     return {
       query: {
         title_cont: "",
+        tags_id_in: [],
       },
     };
   },
@@ -53,7 +59,7 @@ export default {
     AddLike
   },
   computed: {
-    ...mapGetters(['getArticles'])
+    ...mapGetters(['getArticles', 'getTags'])
   },
   methods: {
     ...mapActions(['fetchArticles']),
