@@ -50,6 +50,8 @@
       <add-like :id="article.id" :is_like="article.is_like"/>
       <nuxt-link :to="`/article/${article.id}`">詳細ページ</nuxt-link>
       <nuxt-link :to="`/edit/${article.id}`">編集ページ</nuxt-link>
+      <button v-if="article.status === 'finished'" @click="changeStatus(article.id, 'start')">{{ article.status }}</button>
+      <button v-else-if="article.status === 'start'" @click="changeStatus(article.id, 'finished')">{{ article.status }}</button>
     </ul>
   </div> 
 </template>
@@ -100,6 +102,9 @@ export default {
       } else {
         this.isEdit = true
       }
+    },
+    changeStatus(id, status) {
+      this.$store.dispatch('changeStatus', { id: id, status: status })
     }
   },
   created () {
